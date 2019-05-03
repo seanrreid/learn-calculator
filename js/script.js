@@ -5,7 +5,6 @@ const input = document.getElementById('input'), // input/output button
     operator = document.querySelectorAll('.operators div'), // operator buttons
     result = document.getElementById('result'), // equal button
     clear = document.getElementById('clear'); // clear button
-    
 let resultDisplayed = false; // flag to keep an eye on what output is displayed
 
 // adding click handlers to number buttons
