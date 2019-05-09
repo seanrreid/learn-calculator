@@ -18,10 +18,11 @@ Array.from(numbers).map(number => {
         if (resultDisplayed === false) {
             input.innerHTML += this.innerHTML;
         } else if (
-            (resultDisplayed === true && lastChar === "+") ||
-            lastChar === "-" ||
-            lastChar === "×" ||
-            lastChar === "÷"
+            (resultDisplayed === true && 
+                lastChar === "+") ||
+                lastChar === "-" ||
+                lastChar === "×" ||
+                lastChar === "÷"
         ) {
             // if result is currently displayed and user pressed an operator
             // we need to keep on adding to the string for next operation
