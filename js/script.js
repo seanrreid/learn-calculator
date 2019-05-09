@@ -62,45 +62,49 @@ Array.from(operators).map(operator => {
 
 // on click of 'equal' button
 result.addEventListener("click", function() {
-    // this is the string that we will be processing eg. -10+26+33-56*34/23
+    // the input string is the string that we will be processing eg. 10+26-33
     const inputString = input.innerHTML;
 
     // forming an array of numbers. eg for above string it will be: numbers = ["10", "26", "33", "56", "34", "23"]
-    const numbers = inputString.split(/\+|\-|\×|\÷/g);
+    const numbersStringArray = inputString.split(/\+|\-|\*|\//g);
+
+    // We need to convert our strings to integers
+    // const numbers = numbersString.map(Number)
+    let numbers = [];
+    numbersStringArray.forEach(function(number){
+        numbers.push(Number(number));
+    });
 
     // forming an array of operators. for above string it will be: operators = ["+", "+", "-", "*", "/"]
     // first we replace all the numbers and dot with empty string and then split
     const operators = inputString.replace(/[0-9]|\./g, "").split("");
 
+    console.log("operators", operators);
     
     // now we are looping through the array and doing one operation at a time.
     // first mutliply, then divide, then addition and then subtraction
     // as we move we are alterning the original numbers and operators array
     // the final element remaining in the array will be the output
 
-    let add = operators.indexOf("+"),
-        subtract = operators.indexOf("-"),
-        multiply = operators.indexOf("×"),
-        divide = operators.indexOf("÷");
-
-    console.log("numbers before multiply", numbers);
-
+    let multiply = operators.indexOf("*");
     while (multiply != -1) {
         numbers.splice(multiply, 2, numbers[multiply] * numbers[multiply + 1]);
         operators.splice(multiply, 1);
-        multiply = operators.indexOf("×");
+        multiply = operators.indexOf("*");
     }
 
     console.log("numbers after multiply, before divide", numbers);
 
+    let divide = operators.indexOf("/");
     while (divide != -1) {
         numbers.splice(divide, 2, numbers[divide] / numbers[divide + 1]);
         operators.splice(divide, 1);
-        divide = operators.indexOf("÷");
+        divide = operators.indexOf("/");
     }
 
     console.log("numbers after multiply, divide, and before addition", numbers);
 
+    let add = operators.indexOf("+");
     while (add != -1) {
         // using parseFloat is necessary, otherwise it will result in string concatenation :)
         numbers.splice(add, 2, parseFloat(numbers[add]) + parseFloat(numbers[add + 1]));
@@ -110,6 +114,7 @@ result.addEventListener("click", function() {
 
     console.log("numbers after multiply, divide, addtion, and before subtract", numbers);
 
+    let subtract = operators.indexOf("-")
     while (subtract != -1) {
         numbers.splice(subtract, 2, numbers[subtract] - numbers[subtract + 1]);
         operators.splice(subtract, 1);
