@@ -69,34 +69,26 @@ result.addEventListener("click", function() {
     // Get an array of the operators
     const operatorsArray = currentString.replace(/[0-9]|\./g, "").split("");
 
+    // operatorsArray = ['*']
+    // operatorsArray = ['-', '+']
+
     // We need 4 while loops to do each math operation
     let multiply = operatorsArray.indexOf("*");
     while (multiply != -1) {
         //array.splice(start, deleteCount, value);
+        // string = ["2*3*1"];
+        // numberArray = [2,3];
+        // operators["*", "*"]
+        // multiply = 0;
+        // numbersArray[0] = 2
+        // numbersArray[1] = 3
+        // value = 2 * 3; 
+        // numbersArray = [6]
         numbersArray.splice(multiply, 2, numbersArray[multiply] * numbersArray[multiply + 1]);
-        operatorsArray.splice(mutliply, 1);
+        // This line removes one instance of the multiply 
+        operatorsArray.splice(multiply, 1);
+        // this line updates the multiply variable for any additonal multiply operators
         multiply = operatorsArray.indexOf("*");
-    }
-
-    let divide = operatorsArray.indexOf("/");
-    while (divide != -1) {
-        numbersArray.splice(divide, 2, numbersArray[divide] / numbersArray[divide + 1]);
-        operatorsArray.splice(divide, 1);
-        divide = operatorsArray.indexOf("/");
-    }
-
-    let add = operatorsArray.indexOf("+");
-    while (add != -1) {
-        numbersArray.splice(add, 2, numbersArray[add] + numbersArray[add + 1]);
-        operatorsArray.splice(add, 1);
-        add = operatorsArray.indexOf("+");
-    }
-
-    let subtract = operatorsArray.indexOf("-");
-    while (subtract != -1) {
-        numbersArray.splice(subtract, 2, numbersArray[subtract] - numbersArray[subtract + 1]);
-        operatorsArray.splice(subtract, 1);
-        subtract = operatorsArray.indexOf("-");
     }
 
     resultDisplayed = true;
