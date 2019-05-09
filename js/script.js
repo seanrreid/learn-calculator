@@ -10,16 +10,14 @@ let resultDisplayed = false; // flag to keep an eye on what output is displayed
 
 // numbers is a NodeList object, we need to make it into an array first, then we can map through it...
 Array.from(numbers).map(number => {
-    number.addEventListener("click", function(e) {
+    number.addEventListener("click", function() {
         // if result is not diplayed, just keep adding
+        let currentString = input.innerHTML;
+        let lastChar = currentString[currentString.length - 1];
         if (resultDisplayed === false) {
             input.innerHTML += this.innerHTML;
         } else if (
-            (resultDisplayed === true && 
-                lastChar === "+") ||
-                lastChar === "-" ||
-                lastChar === "×" ||
-                lastChar === "÷"
+            resultDisplayed === true && lastChar === "+" || lastChar === "-" || lastChar === "*" || lastChar === "/"
         ) {
             // if result is currently displayed and user pressed an operator
             // we need to keep on adding to the string for next operation
@@ -37,13 +35,13 @@ Array.from(numbers).map(number => {
 
 // adding click handlers to the calculation buttons
 Array.from(operators).map(operator => {
-    operator.addEventListener("click", function(e) {
+    operator.addEventListener("click", function() {
         // storing current input string and its last character in variables - used later
         let currentString = input.innerHTML;
         let lastChar = currentString[currentString.length - 1];
     
         // if last character entered is an operator, replace it with the currently pressed one
-        if (lastChar === "+" || lastChar === "-" || lastChar === "×" || lastChar === "÷") {
+        if (lastChar === "+" || lastChar === "-" || lastChar === "*" || lastChar === "/") {
             // We need to create a new string, and just replace the last character.  
             const newString = currentString.substring(0, currentString.length - 1) + this.innerHTML;
             input.innerHTML = newString;
