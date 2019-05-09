@@ -9,7 +9,7 @@ var input = document.getElementById('input'), // input/output button
 
 // adding click handlers to number buttons
 for (var i = 0; i < number.length; i++) {
-    number[i].addEventListener("click", function(e) {
+    number[i].addEventListener("click", function(egit ) {
 
         // storing current input string and its last character in variables - used later
         var currentString = input.innerHTML;
