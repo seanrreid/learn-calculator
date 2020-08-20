@@ -7,7 +7,6 @@ const input = document.querySelector("#input"), // input/output button
     clear = document.querySelector("#clear"); // clear button
 
 let resultDisplayed = false; // flag to keep an eye on what output is displayed
-
 let numberOperatorsArray = [];
 
 numbers.forEach(function (number) {
@@ -27,24 +26,52 @@ operators.forEach(function (operator) {
 // on click of 'equal' button
 result.addEventListener("click", function() {
     // do maths here...
-    console.log("The numbers, operators array is currently:", numberOperatorsArray);
     let numbersStringHolder = "";
-    let equalFunctionArray = [];
+    let resultArray = [];
+
     for (let char of numberOperatorsArray) {
-        console.log("the char is: ", char)
         const numReg = /\d/;
         if (numReg.test(char) || char === '.') {
             numbersStringHolder += char;
         } else {
-            equalFunctionArray = [...equalFunctionArray, Number(numbersStringHolder), char]
+            resultArray = [...resultArray, Number(numbersStringHolder), char]
             numbersStringHolder = "";
         }
     }
-    equalFunctionArray = [...equalFunctionArray, Number(numbersStringHolder)];
-    console.log("The Array that inside of the Equals Function", equalFunctionArray);
+    resultArray = [...resultArray, Number(numbersStringHolder)];
+
+    let multiply = resultArray.indexOf("*");
+    while (multiply !== -1) {
+        resultArray.splice(multiply - 1, 3, resultArray[multiply - 1] * resultArray[multiply + 1]);
+        multiply = resultArray.indexOf("*");
+    }
+
+    let divide = resultArray.indexOf("/");
+    while (divide !== -1) {
+        resultArray.splice(divide - 1, 3, resultArray[divide - 1] / resultArray[divide + 1]);
+        divide = resultArray.indexOf("/");
+    }
+
+    let add = resultArray.indexOf("+");
+    while (add !== -1) {
+        resultArray.splice(add - 1, 3, resultArray[add - 1] + resultArray[add + 1]);
+        add = resultArray.indexOf("+");
+    }
+
+    let subtract = resultArray.indexOf("-");
+    while (subtract !== -1) {
+        resultArray.splice(subtract - 1,3,resultArray[subtract - 1] - resultArray[subtract + 1]);
+        subtract = resultArray.indexOf("-");
+    }
+
+    numberOperatorsArray = [...resultArray]
+    input.innerHTML = numberOperatorsArray[0];
+
+    console.log("Numbers and operators", numberOperatorsArray);
 });
 
 // clearing the input on press of clear
-clear.addEventListener("click", function() {
+clear.addEventListener("click", function () {
+    numberOperatorsArray = [];
     input.innerHTML = "";
 });
